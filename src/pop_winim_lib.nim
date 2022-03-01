@@ -2,7 +2,7 @@
     Author: Marcello Salvati, Twitter: @byt3bl33d3r
     License: BSD 3-Clause
 ]#
-
+# 跟dllmain有些相似
 import winim/lean
 
 proc NimMain() {.cdecl, importc.}

